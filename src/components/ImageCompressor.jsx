@@ -1,7 +1,5 @@
 import React from "react";
 
-import imageCompression from "browser-image-compression";
-
 import Card from "react-bootstrap/Card";
 
 export default class imageCompressor extends React.Component {
@@ -31,7 +29,7 @@ export default class imageCompressor extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  click = e => {
+  click = async e => {
     e.preventDefault();
 
     const options = {
@@ -46,6 +44,8 @@ export default class imageCompressor extends React.Component {
     }
 
     let output;
+    const imageCompression = (await import("browser-image-compression"))
+      .default;
     imageCompression(this.state.originalImage, options).then(x => {
       output = x;
 
