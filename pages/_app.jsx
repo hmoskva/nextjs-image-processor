@@ -5,6 +5,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/index.css";
 import Head from "next/head";
+import "reflect-metadata";
 
 export default function MyApp({ Component, pageProps }) {
   return (
