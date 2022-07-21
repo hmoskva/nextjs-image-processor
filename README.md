@@ -36,7 +36,14 @@ npm install
 3. Create a `.env.local` file, using the [example file](..env.example.txt) as guide.
 
 
-4. Run the app locally.
+4. Run database migrations
+
+```
+npm run migrations:run
+```
+
+
+5. Run the app locally.
 
 ```
 npm start

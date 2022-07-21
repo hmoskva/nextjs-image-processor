@@ -1,6 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import { Image } from "entities/image.entity";
+import { Image } from "./entities/image.entity";
 import { DataSource } from "typeorm";
+import { loadEnvConfig } from "@next/env";
+
+loadEnvConfig("./", process.env.NODE_ENV !== "production");
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,9 +13,9 @@ export const AppDataSource = new DataSource({
   password: process.env.TYPEORM_PASSWORD,
   database: process.env.TYPEORM_DATABASE,
   logging: true,
-  entities: [Image],
   subscribers: [],
-  migrations: [`migrations/*.{ts,js}`],
+  entities: [Image],
+  migrations: [`${__dirname}/migrations/*.{ts,js}`],
   autoLoadEntities: true,
 });
 

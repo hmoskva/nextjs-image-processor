@@ -8,49 +8,47 @@ const ImageCompressor = () => {
     compressedLink:
       "http://navparivartan.in/wp-content/uploads/2018/11/placeholder.png",
     originalImage: "",
-    originalLink: ""
+    originalLink: "",
   });
   const [clicked, setClicked] = useState(false);
   const [uploadImage, setUploadImage] = useState(false);
   const { uploadToS3 } = useS3Upload();
 
-  const handle = e => {
+  const handle = (e) => {
     const imageFile = e.target.files[0];
-    setImageData(prev => ({
+    setImageData((prev) => ({
       ...prev,
       originalLink: URL.createObjectURL(imageFile),
       originalImage: imageFile,
-      outputFileName: imageFile.name
+      outputFileName: imageFile.name,
     }));
     setUploadImage(true);
   };
 
-  const uploadImageFiles = async compressedImage => {
+  const uploadImageFiles = async (compressedImage) => {
     const [{ url: originalUrl }, { url: compressedUrl }] = await Promise.all([
       uploadToS3(imageData.originalImage),
-      uploadToS3(compressedImage)
+      uploadToS3(compressedImage),
     ]);
 
-
-    const resp = await fetch("/api/images", {
+    await fetch("/api/images", {
       method: "POST",
       body: JSON.stringify({
         originalUrl,
         compressedUrl,
         name: imageData.outputFileName,
-        size: imageData.originalImage.size
-      })
+        size: imageData.originalImage.size,
+      }),
     });
-
   };
 
-  const click = async e => {
+  const click = async (e) => {
     e.preventDefault();
 
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 500,
-      useWebWorker: true
+      useWebWorker: true,
     };
 
     if (options.maxSizeMB >= imageData.originalImage.size / 1024) {
@@ -58,15 +56,14 @@ const ImageCompressor = () => {
       return 0;
     }
 
-    // let output;
     const imageCompression = (await import("browser-image-compression"))
       .default;
 
     const output = await imageCompression(imageData.originalImage, options);
     const downloadLink = URL.createObjectURL(output);
-    setImageData(prev => ({
+    setImageData((prev) => ({
       ...prev,
-      compressedLink: downloadLink
+      compressedLink: downloadLink,
     }));
 
     await uploadImageFiles(output);
@@ -104,7 +101,7 @@ const ImageCompressor = () => {
               type="file"
               accept="image/*"
               className="mt-2 btn btn-dark w-75"
-              onChange={e => handle(e)}
+              onChange={(e) => handle(e)}
             />
           </div>
         </div>
@@ -114,7 +111,7 @@ const ImageCompressor = () => {
             <button
               type="button"
               className=" btn btn-dark"
-              onClick={e => click(e)}
+              onClick={(e) => click(e)}
             >
               Compress
             </button>
