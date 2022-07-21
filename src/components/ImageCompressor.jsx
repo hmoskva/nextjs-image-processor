@@ -31,7 +31,6 @@ const ImageCompressor = () => {
       uploadToS3(compressedImage)
     ]);
 
-    console.log("compressedUrl :>> ", originalUrl, compressedUrl);
 
     const resp = await fetch("/api/images", {
       method: "POST",
@@ -43,7 +42,6 @@ const ImageCompressor = () => {
       })
     });
 
-    console.log("original :>> ", resp);
   };
 
   const click = async e => {
@@ -65,7 +63,6 @@ const ImageCompressor = () => {
       .default;
 
     const output = await imageCompression(imageData.originalImage, options);
-    console.log("output", output);
     const downloadLink = URL.createObjectURL(output);
     setImageData(prev => ({
       ...prev,
