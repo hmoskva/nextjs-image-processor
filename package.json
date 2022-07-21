@@ -6,6 +6,8 @@
     "bootstrap": "^4.3.1",
     "browser-image-compression": "^1.0.6",
     "next": "^12.2.2",
+    "next-s3-upload": "^0.2.2",
+    "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^18.2.0",
@@ -15,7 +17,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d db.js",
+    "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run -d db.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.0.6",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
