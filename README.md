@@ -8,12 +8,15 @@ A simple image compressor built with [react](https://reactjs.org/) and [browser-
 
 - Compress Image By Reducing Resolution and Size
 - Offline Compression
+- Image Uploads to s3
+- Image Data Persist
 
 ## Built With
 
 - ReactJS
 - React Bootstrap
 - Browser Image Compression
+- NextJS
 
 ## Development
 
@@ -30,7 +33,10 @@ cd react-image-compressor
 npm install
 ```
 
-3. Run the app locally.
+3. Create a `.env.local` file, using the [example file](..env.example.txt) as guide.
+
+
+4. Run the app locally.
 
 ```
 npm start
