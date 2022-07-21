@@ -18,6 +18,11 @@ A simple image compressor built with [react](https://reactjs.org/) and [browser-
 - Browser Image Compression
 - NextJS
 
+
+## API Documentation
+
+View the API docs [here](https://documenter.getpostman.com/view/6313916/UzR1J1yW)
+
 ## Development
 
 1. Clone the repository and change directory.
