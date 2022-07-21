@@ -26,20 +26,27 @@ const ImageCompressor = () => {
   };
 
   const uploadImageFiles = async (compressedImage) => {
-    const [{ url: originalUrl }, { url: compressedUrl }] = await Promise.all([
-      uploadToS3(imageData.originalImage),
-      uploadToS3(compressedImage),
-    ]);
-
-    await fetch("/api/images", {
-      method: "POST",
-      body: JSON.stringify({
-        originalUrl,
-        compressedUrl,
-        name: imageData.outputFileName,
-        size: imageData.originalImage.size,
-      }),
-    });
+    try {
+      const [{ url: originalUrl }, { url: compressedUrl }] = await Promise.all([
+        uploadToS3(imageData.originalImage),
+        uploadToS3(compressedImage),
+      ]);
+      let resp = await fetch("/api/images", {
+        method: "POST",
+        body: JSON.stringify({
+          originalUrl,
+          compressedUrl,
+          name: imageData.outputFileName,
+          size: imageData.originalImage.size,
+        }),
+      });
+      if (!resp.ok) {
+        resp = await resp.json();
+        throw new Error(resp.message);
+      }
+    } catch (error) {
+      alert(error.message || "Something went wrong");
+    }
   };
 
   const click = async (e) => {

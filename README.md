@@ -39,12 +39,12 @@ npm install
 4. Run database migrations
 
 ```
-npm run migrations:run
+npm run migration:run
 ```
 
 
 5. Run the app locally.
 
 ```
-npm start
+npm run dev
 ```
